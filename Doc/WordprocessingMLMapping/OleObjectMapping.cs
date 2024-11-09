@@ -48,11 +48,14 @@ namespace b2xtranslator.WordprocessingMLMapping
             //type
             if (ole.fLinked)
             {
-                var link = new Uri(ole.Link);
-                var rel = this._targetPart.AddExternalRelationship(OpenXmlRelationshipTypes.OleObject, link);
-                this._writer.WriteAttributeString("r", "id", OpenXmlNamespaces.Relationships, rel.Id);
-                this._writer.WriteAttributeString("Type", "Link");
-                this._writer.WriteAttributeString("UpdateMode", ole.UpdateMode.ToString());
+                if (ole.Link != null)
+                {
+                    var link = new Uri(ole.Link);
+                    var rel = this._targetPart.AddExternalRelationship(OpenXmlRelationshipTypes.OleObject, link);
+                    this._writer.WriteAttributeString("r", "id", OpenXmlNamespaces.Relationships, rel.Id);
+                    this._writer.WriteAttributeString("Type", "Link");
+                    this._writer.WriteAttributeString("UpdateMode", ole.UpdateMode.ToString());
+                }
             }
             else
             {
@@ -90,7 +93,7 @@ namespace b2xtranslator.WordprocessingMLMapping
             var writer = new StructuredStorageWriter();
 
             // Word will not open embedded charts if a CLSID is set.
-            if(ole.Program.StartsWith("Excel.Chart") == false)
+            if(ole.Program != null && ole.Program.StartsWith("Excel.Chart") == false)
             {
                 writer.RootDirectoryEntry.setClsId(ole.ClassId);
             }

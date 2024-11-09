@@ -35,13 +35,13 @@ namespace b2xtranslator.WordprocessingMLMapping
         /// <summary>
         /// Display name of the linked object or embedded object.
         /// </summary>
-        public string UserType;
+        public string? UserType;
 
-        public string ClipboardFormat;
+        public string? ClipboardFormat;
 
-        public string Link;
+        public string? Link;
 
-        public string Program;
+        public string? Program;
 
         public LinkUpdateOption UpdateMode;
 
@@ -158,7 +158,7 @@ namespace b2xtranslator.WordprocessingMLMapping
 
         private string getOleEntryName(CharacterPropertyExceptions chpx)
         {
-            string ret = null;
+            string ret = "";
 
             foreach (var sprm in chpx.grpprl)
             {
@@ -176,7 +176,7 @@ namespace b2xtranslator.WordprocessingMLMapping
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<OleObject>)mapping).Apply(this);
+            (mapping as IMapping<OleObject>)?.Apply(this);
         }
 
         #endregion
