@@ -1,3 +1,4 @@
+using System.Text;
 using b2xtranslator.CommonTranslatorLib;
 using b2xtranslator.Spreadsheet.XlsFileFormat.DataContainer;
 
@@ -7,6 +8,11 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 {
     public class XlsDocument :  IVisitable
     {
+        static XlsDocument()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+
         /// <summary>
         /// Some constant strings 
         /// </summary>

@@ -12,10 +12,7 @@ namespace b2xtranslator.OfficeDrawing.Shapetypes
             this.ConnectorLocations = "9250,0;3055,21600;9725,8310;15662,14285;21600,8310";
             this.ConnectorAngles = "270,90,90,90,0";
 
-            this.TextboxRectangle = "0,8310,6110,21600";
-           
-
-
+            this.TextboxRectangle = "0,8310,6110,21600";           
         }
     }
 }

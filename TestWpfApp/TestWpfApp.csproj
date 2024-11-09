@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Doc\b2xtranslator.doc.csproj" />
+    <ProjectReference Include="..\Ppt\b2xtranslator.ppt.csproj" />
+    <ProjectReference Include="..\Xls\b2xtranslator.xls.csproj" />
+  </ItemGroup>
+
+</Project>

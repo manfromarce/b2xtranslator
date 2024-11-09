@@ -5,6 +5,7 @@ using b2xtranslator.StructuredStorage.Reader;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 
 namespace b2xtranslator.DocFileFormat
 {
@@ -12,6 +13,7 @@ namespace b2xtranslator.DocFileFormat
     {
         static WordDocument()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Record.UpdateTypeToRecordClassMapping(Assembly.GetExecutingAssembly(), typeof(WordDocument).Namespace);
         }
 

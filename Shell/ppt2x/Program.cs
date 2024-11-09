@@ -113,19 +113,20 @@ namespace b2xtranslator.ppt2x
                 string conformOutputFile = Converter.GetConformFilename(ChoosenOutputFile, outType);
 
                 // create the pptx document
-                var pptx = PresentationDocument.Create(conformOutputFile, outType);
+                using (var pptx = PresentationDocument.Create(conformOutputFile, outType))
+                {
+                    //start time
+                    var start = DateTime.Now;
+                    TraceLogger.Info("Converting file {0} into {1}", InputFile, conformOutputFile);
 
-                //start time
-                var start = DateTime.Now;
-                TraceLogger.Info("Converting file {0} into {1}", InputFile, conformOutputFile);
+                    // convert
+                    Converter.Convert(ppt, pptx);
 
-                // convert
-                Converter.Convert(ppt, pptx);
-
-                // stop time
-                var end = DateTime.Now;
-                var diff = end.Subtract(start);
-                TraceLogger.Info("Conversion of file {0} finished in {1} seconds", InputFile, diff.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+                    // stop time
+                    var end = DateTime.Now;
+                    var diff = end.Subtract(start);
+                    TraceLogger.Info("Conversion of file {0} finished in {1} seconds", InputFile, diff.TotalSeconds.ToString(CultureInfo.InvariantCulture));
+                }
             }
         }
     }

@@ -14,6 +14,7 @@ namespace b2xtranslator.PptFileFormat
     public class PowerpointDocument : BinaryDocument, IVisitable, IEnumerable<Record>
     {
         static PowerpointDocument() {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Record.UpdateTypeToRecordClassMapping(Assembly.GetExecutingAssembly(), typeof(PowerpointDocument).Namespace);
         }
 
