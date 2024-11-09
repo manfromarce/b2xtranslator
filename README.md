@@ -1,3 +1,9 @@
+This is a fork of the original [b2xtranslator project](https://github.com/EvolutionJobs/b2xtranslator) which seems abandoned.
+
+
+
+The original README follows.
+
 # Binary(doc,xls,ppt) to OpenXMLTranslator
 
 .NET Core library to convert Microsoft Office binary files (`doc`, `xls` and `ppt`) to Open XML (`docx`, `xlsx` and `pptx`).

@@ -106,7 +106,7 @@ namespace b2xtranslator.DocFileFormat
             long strStart = reader.BaseStream.Position;
             long strEnd = searchTerminationZero(this._reader);
             this.xszFtn = Encoding.Unicode.GetString(this._reader.ReadBytes((int)(strEnd - strStart)));
-            this.xszFtn = this.xszFtn.Replace("\0", "");
+            this.xszFtn = this.xszFtn.TrimEnd('\0');
 
             long readBytes = this._reader.BaseStream.Position - startPos;
             if(readBytes < this._length)
@@ -115,7 +115,7 @@ namespace b2xtranslator.DocFileFormat
                 strStart = reader.BaseStream.Position;
                 strEnd = searchTerminationZero(this._reader);
                 this.xszAlt = Encoding.Unicode.GetString(this._reader.ReadBytes((int)(strEnd - strStart)));
-                this.xszAlt = this.xszAlt.Replace("\0", "");
+                this.xszAlt = this.xszAlt.TrimEnd('\0');
             }
         }
 

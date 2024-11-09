@@ -241,7 +241,7 @@ namespace b2xtranslator.PptFileFormat
                     break;
                 case TimeVariantTypeEnum.String:
                     this.stringValue = Encoding.Unicode.GetString(this.Reader.ReadBytes((int)size - 1));
-                    this.stringValue = this.stringValue.Replace("\0", "");
+                    this.stringValue = this.stringValue.TrimEnd('\0');
                     break;
             }
         }

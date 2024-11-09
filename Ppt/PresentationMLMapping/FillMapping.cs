@@ -126,7 +126,7 @@ namespace b2xtranslator.PresentationMLMapping
                         if (url)
                         {
                             strUrl = ASCIIEncoding.ASCII.GetString(so.OptionsByID[ShapeOptions.PropertyId.fillBlipName].opComplex);
-                            strUrl = strUrl.Replace("\0", "");
+                            strUrl = strUrl.TrimEnd('\0');
                         }
                     }
                     else

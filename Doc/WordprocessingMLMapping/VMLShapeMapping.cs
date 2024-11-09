@@ -483,13 +483,14 @@ namespace b2xtranslator.WordprocessingMLMapping
 
                     case ShapeOptions.PropertyId.gtextUNICODE:
                         string text = Encoding.Unicode.GetString(entry.opComplex);
+                        //text = text.Replace("\r\n", "");
                         text = text.Replace("\n", "");
-                        text = text.Replace("\0", "");
+                        text = text.TrimEnd('\0');
                         appendValueAttribute(this._textpath, "", "string", text, "");
                         break;
                     case ShapeOptions.PropertyId.gtextFont:
                         string font = Encoding.Unicode.GetString(entry.opComplex);
-                        font = font.Replace("\0", "");
+                        font = font.TrimEnd('\0');
                         appendStyleProperty(this._textPathStyle, "font-family", "\""+font+"\"");
                         break;
                     case ShapeOptions.PropertyId.GeometryTextBooleanProperties:

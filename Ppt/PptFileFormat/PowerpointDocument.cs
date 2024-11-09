@@ -123,7 +123,7 @@ namespace b2xtranslator.PptFileFormat
                     this.CurrentUserStream.Position = 0;
                     var bytes = new byte[this.CurrentUserStream.Length];
                     this.CurrentUserStream.Read(bytes);
-                    string s = Encoding.UTF8.GetString(bytes).Replace("\0","");
+                    string s = Encoding.UTF8.GetString(bytes).TrimEnd('\0');
                 }
             }
             catch (InvalidRecordException e)
