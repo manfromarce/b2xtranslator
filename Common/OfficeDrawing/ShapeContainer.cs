@@ -42,7 +42,7 @@ namespace b2xtranslator.OfficeDrawing
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<ShapeContainer>)mapping).Apply(this);
+            (mapping as IMapping<ShapeContainer>)?.Apply(this);
         }
 
         #endregion

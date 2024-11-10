@@ -106,7 +106,7 @@ namespace b2xtranslator.DocFileFormat
 
         public virtual void Convert<T>(T mapping)
         {
-            ((IMapping<PropertyExceptions>)mapping).Apply(this);
+            (mapping as IMapping<PropertyExceptions>)?.Apply(this);
         }
 
         #endregion

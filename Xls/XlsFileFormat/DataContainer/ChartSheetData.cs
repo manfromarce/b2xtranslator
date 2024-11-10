@@ -11,7 +11,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public override void Convert<T>(T mapping)
         {
-            ((IMapping<ChartSheetSequence>)mapping).Apply(this.ChartSheetSequence);
+            (mapping as IMapping<ChartSheetSequence>)?.Apply(this.ChartSheetSequence);
         }
     }
 }

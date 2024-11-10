@@ -19,8 +19,11 @@ namespace b2xtranslator.PptFileFormat
                         xml = xml.Replace("http://schemas.openxmlformats.org/drawingml/2006/3/main", "http://schemas.openxmlformats.org/drawingml/2006/main");
                         if (info.XmlDocumentElement.Attributes["type"] != null)
                         {
-                            string title = info.XmlDocumentElement.Attributes["type"].InnerText;
-                        this.Layouts.Add(title, xml);
+                            var title = info.XmlDocumentElement.Attributes["type"]?.InnerText;
+                            if (title != null) 
+                            {
+                                this.Layouts.Add(title, xml);
+                            }
                         }
                     }           
                 }

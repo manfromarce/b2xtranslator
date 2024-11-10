@@ -14,7 +14,7 @@ namespace b2xtranslator.PresentationMLMapping
         IMapping<ShapeOptions>
     {
         protected ConversionContext _ctx;
-        private ShapeOptions so;
+        private ShapeOptions? so;
 
         public ShadowMapping(ConversionContext ctx, XmlWriter writer)
             : base(writer)
@@ -231,9 +231,9 @@ namespace b2xtranslator.PresentationMLMapping
         {
             this._writer.WriteStartElement("a", "srgbClr", OpenXmlNamespaces.DrawingML);
             string colorval = "808080";
-            if (this.so.OptionsByID.ContainsKey(ShapeOptions.PropertyId.shadowColor)) colorval = Utils.getRGBColorFromOfficeArtCOLORREF(this.so.OptionsByID[ShapeOptions.PropertyId.shadowColor].op, this.so.FirstAncestorWithType<Slide>(), this.so);
+            if (this.so?.OptionsByID.ContainsKey(ShapeOptions.PropertyId.shadowColor) == true) colorval = Utils.getRGBColorFromOfficeArtCOLORREF(this.so.OptionsByID[ShapeOptions.PropertyId.shadowColor].op, this.so.FirstAncestorWithType<Slide>(), this.so);
             this._writer.WriteAttributeString("val", colorval);
-            if (this.so.OptionsByID.ContainsKey(ShapeOptions.PropertyId.shadowOpacity) && this.so.OptionsByID[ShapeOptions.PropertyId.shadowOpacity].op != 65536)
+            if (this.so?.OptionsByID.ContainsKey(ShapeOptions.PropertyId.shadowOpacity) == true && this.so.OptionsByID[ShapeOptions.PropertyId.shadowOpacity].op != 65536)
             {
                 this._writer.WriteStartElement("a", "alpha", OpenXmlNamespaces.DrawingML);
                 this._writer.WriteAttributeString("val", Math.Round(((decimal)this.so.OptionsByID[ShapeOptions.PropertyId.shadowOpacity].op / 65536 * 100000)).ToString()); //we need the percentage of the opacity (65536 means 100%)
@@ -246,8 +246,8 @@ namespace b2xtranslator.PresentationMLMapping
         {
             int distX = Utils.EMUToMasterCoord(0x6338);
             int distY = Utils.EMUToMasterCoord(0x6338);
-            if (this.so.OptionsByID.ContainsKey(ShapeOptions.PropertyId.shadowOffsetX)) distX = Utils.EMUToMasterCoord((int)this.so.OptionsByID[ShapeOptions.PropertyId.shadowOffsetX].op);
-            if (this.so.OptionsByID.ContainsKey(ShapeOptions.PropertyId.shadowOffsetY)) distY = Utils.EMUToMasterCoord((int)this.so.OptionsByID[ShapeOptions.PropertyId.shadowOffsetY].op);
+            if (this.so?.OptionsByID.ContainsKey(ShapeOptions.PropertyId.shadowOffsetX) == true) distX = Utils.EMUToMasterCoord((int)this.so.OptionsByID[ShapeOptions.PropertyId.shadowOffsetX].op);
+            if (this.so?.OptionsByID.ContainsKey(ShapeOptions.PropertyId.shadowOffsetY) == true) distY = Utils.EMUToMasterCoord((int)this.so.OptionsByID[ShapeOptions.PropertyId.shadowOffsetY].op);
             string dir = "18900000";
             if (distX < 0)
             {

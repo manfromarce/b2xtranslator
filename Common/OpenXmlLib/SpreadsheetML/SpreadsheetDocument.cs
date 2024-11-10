@@ -6,29 +6,29 @@
     public class SpreadsheetDocument : OpenXmlPackage
     {
         protected WorkbookPart workBookPart;
-        protected OpenXmlPackage.DocumentType _documentType;
+        protected OpenXmlDocumentType _documentType;
 
         /// <summary>
         /// Ctor 
         /// </summary>
         /// <param name="fileName">Filename of the file which should be written</param>
-        protected SpreadsheetDocument(string fileName, OpenXmlPackage.DocumentType type)
+        protected SpreadsheetDocument(string fileName, OpenXmlDocumentType type)
             : base(fileName)
         {
             switch (type)
             {
-                case OpenXmlPackage.DocumentType.Document:
-                    this.workBookPart = new WorkbookPart(this, SpreadsheetMLContentTypes.Workbook);
-                    break;
-                case OpenXmlPackage.DocumentType.MacroEnabledDocument:
+                case OpenXmlDocumentType.MacroEnabledDocument:
                     this.workBookPart = new WorkbookPart(this, SpreadsheetMLContentTypes.WorkbookMacro);
                     break;
-                //case OpenXmlPackage.DocumentType.Template:
-                //    workBookPart = new WorkbookPart(this, WordprocessingMLContentTypes.MainDocumentTemplate);
-                //    break;
-                //case OpenXmlPackage.DocumentType.MacroEnabledTemplate:
-                //    workBookPart = new WorkbookPart(this, WordprocessingMLContentTypes.MainDocumentMacroTemplate);
-                //    break;
+                case OpenXmlDocumentType.Template:
+                    this.workBookPart = new WorkbookPart(this, WordprocessingMLContentTypes.MainDocumentTemplate);
+                    break;
+                case OpenXmlDocumentType.MacroEnabledTemplate:
+                    this.workBookPart = new WorkbookPart(this, WordprocessingMLContentTypes.MainDocumentMacroTemplate);
+                    break;
+                default:
+                    this.workBookPart = new WorkbookPart(this, SpreadsheetMLContentTypes.Workbook);
+                    break;
             }
             this._documentType = type;
             this.AddPart(this.workBookPart);
@@ -39,13 +39,13 @@
         /// </summary>
         /// <param name="fileName">The name of the file which should be written</param>
         /// <returns>The object itself</returns>
-        public static SpreadsheetDocument Create(string fileName, OpenXmlPackage.DocumentType type)
+        public static SpreadsheetDocument Create(string fileName, OpenXmlDocumentType type)
         {
             var spreadsheet = new SpreadsheetDocument(fileName, type);
             return spreadsheet;
         }
 
-        public OpenXmlPackage.DocumentType DocumentType
+        public OpenXmlDocumentType DocumentType
         {
             get { return this._documentType; }
             set { this._documentType = value; }

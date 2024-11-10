@@ -112,7 +112,7 @@ namespace b2xtranslator.WordprocessingMLMapping
                     {
                         var rev = new RevisionData();
                         rev.Type = RevisionData.RevisionType.NoRevision;
-                        style.chpx.Convert(new CharacterPropertiesMapping(this._writer, this._parentDoc, rev, style.papx, true));
+                        style.chpx.Convert(new CharacterPropertiesMapping(this._writer, this._parentDoc, rev, style?.papx, true));
                     }
 
                     //write table properties

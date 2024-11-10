@@ -71,7 +71,7 @@ namespace b2xtranslator.PptFileFormat
         public ushort? SymbolTypefaceIdx;
         public ushort? Size;
         public ushort? Position;
-        public GrColorAtom Color;
+        public GrColorAtom? Color;
 
         public CharacterRun(BinaryReader reader)
         {

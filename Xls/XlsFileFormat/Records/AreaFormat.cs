@@ -90,7 +90,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.Records
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<AreaFormat>)mapping).Apply(this);
+            (mapping as IMapping<AreaFormat>)?.Apply(this);
         }
 
         #endregion

@@ -148,7 +148,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<SsSequence>)mapping).Apply(this);
+            (mapping as IMapping<SsSequence>)?.Apply(this);
         }
 
         #endregion

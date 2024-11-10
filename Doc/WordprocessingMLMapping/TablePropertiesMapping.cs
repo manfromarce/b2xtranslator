@@ -12,12 +12,11 @@ namespace b2xtranslator.WordprocessingMLMapping
         PropertiesMapping,
         IMapping<TablePropertyExceptions>
     {
-        private XmlElement _tblPr;
-        private XmlElement _tblGrid;
-        private XmlElement _tblBorders;
+        private XmlElement _tblPr, _tblBorders;
+        private XmlElement? _tblGrid;
         private StyleSheet _styles;
         private List<short> _grid;
-        private BorderCode brcLeft, brcTop, brcBottom, brcRight, brcHorz, brcVert;
+        private BorderCode? brcLeft, brcTop, brcBottom, brcRight, brcHorz, brcVert;
 
         private enum WidthType
         {

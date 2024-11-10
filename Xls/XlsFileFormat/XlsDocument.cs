@@ -69,7 +69,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<XlsDocument>)mapping).Apply(this);
+            (mapping as IMapping<XlsDocument>)?.Apply(this);
         }
 
         #endregion

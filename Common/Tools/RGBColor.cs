@@ -37,7 +37,7 @@ namespace b2xtranslator.Tools
                 this.Alpha = bytes[3];
                 this.EightDigitHexCode += string.Format("{0:x2}", this.Alpha);
             }
-            else if (order == ByteOrder.RedLast)
+            else
             {
                 //R
                 this.Red = bytes[2];

@@ -81,7 +81,7 @@ namespace b2xtranslator.PresentationMLMapping
 
         private void WriteSizeInfo(PowerpointDocument ppt, DocumentContainer documentRecord)
         {
-            var doc = documentRecord.FirstChildWithType<DocumentAtom>();
+            var doc = documentRecord?.FirstChildWithType<DocumentAtom>();
 
             // Write slide size and type
             WriteSlideSizeInfo(doc);
@@ -120,63 +120,66 @@ namespace b2xtranslator.PresentationMLMapping
         }
 
        
-       private void CreateSlides(PowerpointDocument ppt, DocumentContainer documentRecord)
+       private void CreateSlides(PowerpointDocument ppt, DocumentContainer? documentRecord)
         {
-            foreach (var lst in ppt.DocumentRecord.AllChildrenWithType<SlideListWithText>())
+            var slideLists = ppt.DocumentRecord?.AllChildrenWithType<SlideListWithText>();
+            if (slideLists != null)
             {
-                if (lst.Instance == 0)
+                foreach (var lst in slideLists)
                 {
-                    foreach (var at in lst.SlidePersistAtoms)
+                    if (lst.Instance == 0)
                     {
-                        foreach (var slide in ppt.SlideRecords)
+                        foreach (var at in lst.SlidePersistAtoms)
                         {
-                            if (slide.PersistAtom == at)
+                            foreach (var slide in ppt.SlideRecords)
                             {
-                                var sMapping = new SlideMapping(this._ctx);
-                                sMapping.Apply(slide);
-                                this.SlideMappings.Add(sMapping);
-                            }
-                        }
-
-
-                    }
-                }
-                //bool found = false;
-                if (lst.Instance == 2) //notes
-                {
-                    foreach (var at in lst.SlidePersistAtoms)
-                    {
-                        //found = false;
-                        foreach (var note in ppt.NoteRecords)
-                        {
-                            if (note.PersistAtom.SlideId == at.SlideId)
-                            {
-                                var a = note.FirstChildWithType<NotesAtom>();
-                                foreach (var slideMapping in this.SlideMappings)
+                                if (slide.PersistAtom == at)
                                 {
-                                    if (slideMapping.Slide.PersistAtom.SlideId == a.SlideIdRef)
-                                    {
-                                        var nMapping = new NoteMapping(this._ctx, slideMapping);
-                                        nMapping.Apply(note);
-                                        this.NoteMappings.Add(nMapping);
-                                        //found = true;
-                                    }
+                                    var sMapping = new SlideMapping(this._ctx);
+                                    sMapping.Apply(slide);
+                                    this.SlideMappings.Add(sMapping);
                                 }
-                                
                             }
-                        }
-                        //if (!found)
-                        //{
-                        //    string s = "";
-                        //}
 
+
+                        }
+                    }
+                    //bool found = false;
+                    if (lst.Instance == 2) //notes
+                    {
+                        foreach (var at in lst.SlidePersistAtoms)
+                        {
+                            //found = false;
+                            foreach (var note in ppt.NoteRecords)
+                            {
+                                if (note.PersistAtom?.SlideId == at.SlideId)
+                                {
+                                    var a = note.FirstChildWithType<NotesAtom>();
+                                    foreach (var slideMapping in this.SlideMappings)
+                                    {
+                                        if (slideMapping.Slide?.PersistAtom.SlideId == a.SlideIdRef)
+                                        {
+                                            var nMapping = new NoteMapping(this._ctx, slideMapping);
+                                            nMapping.Apply(note);
+                                            this.NoteMappings.Add(nMapping);
+                                            //found = true;
+                                        }
+                                    }
+                                
+                                }
+                            }
+                            //if (!found)
+                            //{
+                            //    string s = "";
+                            //}
+
+                        }
                     }
                 }
             }
-
        }
 
-        private void WriteSlides(PowerpointDocument ppt, DocumentContainer documentRecord)
+        private void WriteSlides(PowerpointDocument ppt, DocumentContainer? documentRecord)
         {
             this._writer.WriteStartElement("p", "sldIdLst", OpenXmlNamespaces.PresentationML);
 
@@ -194,9 +197,9 @@ namespace b2xtranslator.PresentationMLMapping
 
             this._writer.WriteStartElement("p", "sldId", OpenXmlNamespaces.PresentationML);
 
-            var slideAtom = slide.FirstChildWithType<SlideAtom>();
+            var slideAtom = slide?.FirstChildWithType<SlideAtom>();
 
-            this._writer.WriteAttributeString("id", slide.PersistAtom.SlideId.ToString());
+            this._writer.WriteAttributeString("id", slide?.PersistAtom.SlideId.ToString());
             this._writer.WriteAttributeString("r", "id", OpenXmlNamespaces.Relationships, sMapping.targetPart.RelIdToString);
 
             this._writer.WriteEndElement();

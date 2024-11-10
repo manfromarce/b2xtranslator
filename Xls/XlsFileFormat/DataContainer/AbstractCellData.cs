@@ -89,16 +89,23 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.DataContainer
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        int IComparable.CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
-            var cell = (AbstractCellData)obj;
-            if (this.col > cell.col)
-                return (1);
-            if (this.col < cell.col)
-                return (-1);
+            if (obj is AbstractCellData cell)
+            {
+                if (this.col > cell.col)
+                    return (1);
+                if (this.col < cell.col)
+                    return (-1);
+                else
+                    return (0);
+            }
             else
-                return (0);
+            {
+                // if the other cell is null, consider it minor
+                return 1;
+            }
         }
-        
+
     }
 }

@@ -292,7 +292,7 @@ namespace b2xtranslator.DocFileFormat
 
         public virtual void Convert<T>(T mapping)
         {
-            ((IMapping<FormFieldData>)mapping).Apply(this);
+            (mapping as IMapping<FormFieldData>)?.Apply(this);
         }
 
         #endregion

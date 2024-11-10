@@ -16,7 +16,7 @@ namespace b2xtranslator.StructuredStorage.Reader
         protected long _position;
         protected long _length;
         string _name;
-        List<uint> _sectors;
+        List<uint> _sectors = new List<uint>();
 
         /// <summary>
         /// Initializes a virtual stream

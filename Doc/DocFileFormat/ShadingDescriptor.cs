@@ -139,7 +139,7 @@ namespace b2xtranslator.DocFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<ShadingDescriptor>)mapping).Apply(this);
+            (mapping as IMapping<ShadingDescriptor>)?.Apply(this);
         }
 
         #endregion

@@ -101,7 +101,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<SeriesFormatSequence>)mapping).Apply(this);
+            (mapping as IMapping<SeriesFormatSequence>)?.Apply(this);
         }
 
         #endregion

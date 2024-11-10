@@ -14,7 +14,7 @@ namespace b2xtranslator.PresentationMLMapping
     public class HandoutMasterMapping : PresentationMapping<RegularContainer>
     {
         public HandoutMasterPart MasterPart;
-        protected Handout Master;
+        protected Handout? Master;
         protected uint MasterId;
 
         public HandoutMasterMapping(ConversionContext ctx)
@@ -46,7 +46,7 @@ namespace b2xtranslator.PresentationMLMapping
 
             this._writer.WriteStartElement("p", "cSld", OpenXmlNamespaces.PresentationML);
 
-            var sc = this.Master.FirstChildWithType<PPDrawing>().FirstChildWithType<DrawingContainer>().FirstChildWithType<ShapeContainer>();
+            var sc = this.Master?.FirstChildWithType<PPDrawing>().FirstChildWithType<DrawingContainer>().FirstChildWithType<ShapeContainer>();
             if (sc != null)
             {
                 var sh = sc.FirstChildWithType<Shape>();
@@ -94,7 +94,7 @@ namespace b2xtranslator.PresentationMLMapping
             this._writer.WriteStartElement("p", "spTree", OpenXmlNamespaces.PresentationML);
             var stm = new ShapeTreeMapping(this._ctx, this._writer);
             stm.parentSlideMapping = this;
-            stm.Apply(this.Master.FirstChildWithType<PPDrawing>());
+            stm.Apply(this.Master?.FirstChildWithType<PPDrawing>());
 
             this._writer.WriteEndElement();
             this._writer.WriteEndElement();
@@ -121,7 +121,8 @@ namespace b2xtranslator.PresentationMLMapping
 
             // Write txStyles
             var roundTripTxStyles = this.Master.FirstChildWithType<RoundTripOArtTextStyles12>();
-            if (false & roundTripTxStyles != null)
+            //if (false & roundTripTxStyles != null)
+            if (roundTripTxStyles != null)
             {
                 roundTripTxStyles.XmlDocumentElement.WriteTo(this._writer);
             }

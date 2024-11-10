@@ -42,7 +42,7 @@ namespace b2xtranslator.DocFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<ListTable>)mapping).Apply(this);
+            (mapping as IMapping<ListTable>)?.Apply(this);
         }
 
         #endregion

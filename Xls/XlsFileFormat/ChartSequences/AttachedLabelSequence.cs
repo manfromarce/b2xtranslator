@@ -106,7 +106,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<AttachedLabelSequence>)mapping).Apply(this);
+            (mapping as IMapping<AttachedLabelSequence>)?.Apply(this);
         }
 
         #endregion

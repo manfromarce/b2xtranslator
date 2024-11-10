@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Diagnostics;
 using b2xtranslator.Spreadsheet.XlsFileFormat.Structures;
 using b2xtranslator.StructuredStorage.Reader;
@@ -49,7 +50,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.Records
         /// 
         /// The number of elements in this array MUST be equal to the value specified in cFont.
         /// </summary>
-        public FontInfo[] rgFontInfo;
+        public FontInfo[] rgFontInfo = Array.Empty<FontInfo>();
         
         public FrtFontList(IStreamReader reader, RecordType id, ushort length)
             : base(reader, id, length)

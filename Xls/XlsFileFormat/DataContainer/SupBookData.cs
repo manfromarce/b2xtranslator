@@ -95,7 +95,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.DataContainer
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<SupBookData>)mapping).Apply(this);
+            (mapping as IMapping<SupBookData>)?.Apply(this);
         }
 
         #endregion

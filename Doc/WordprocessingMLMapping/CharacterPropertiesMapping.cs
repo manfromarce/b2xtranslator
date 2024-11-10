@@ -15,8 +15,8 @@ namespace b2xtranslator.WordprocessingMLMapping
         private ushort _currentIstd;
         private RevisionData _revisionData;
         private bool _styleChpx;
-        private ParagraphPropertyExceptions _currentPapx;
-        List<CharacterPropertyExceptions> _hierarchy;
+        private ParagraphPropertyExceptions? _currentPapx;
+        List<CharacterPropertyExceptions>? _hierarchy;
 
         private enum SuperscriptIndex
         {
@@ -25,7 +25,7 @@ namespace b2xtranslator.WordprocessingMLMapping
             subscript
         }
 
-        public CharacterPropertiesMapping(XmlWriter writer, WordDocument doc, RevisionData rev, ParagraphPropertyExceptions currentPapx, bool styleChpx)
+        public CharacterPropertiesMapping(XmlWriter writer, WordDocument doc, RevisionData rev, ParagraphPropertyExceptions? currentPapx, bool styleChpx)
             : base(writer)
         {
             this._doc = doc;
@@ -36,7 +36,7 @@ namespace b2xtranslator.WordprocessingMLMapping
             this._currentIstd = UInt16.MaxValue;
         }
 
-        public CharacterPropertiesMapping(XmlElement rPr, WordDocument doc, RevisionData rev, ParagraphPropertyExceptions currentPapx, bool styleChpx)
+        public CharacterPropertiesMapping(XmlElement rPr, WordDocument doc, RevisionData rev, ParagraphPropertyExceptions? currentPapx, bool styleChpx)
             : base(null)
         {
             this._doc = doc;
@@ -411,15 +411,18 @@ namespace b2xtranslator.WordprocessingMLMapping
         private bool applyToggleHierachy(SinglePropertyModifier sprm)
         {
             bool ret = false;
-            foreach (var ancientChpx in this._hierarchy)
+            if (this._hierarchy != null)
             {
-                foreach (var ancientSprm in ancientChpx.grpprl)
+                foreach (var ancientChpx in this._hierarchy)
                 {
-                    if (ancientSprm.OpCode == sprm.OpCode)
+                    foreach (var ancientSprm in ancientChpx.grpprl)
                     {
-                        byte ancient = ancientSprm.Arguments[0];
-                        ret = toogleValue(ret, ancient);
-                        break;
+                        if (ancientSprm.OpCode == sprm.OpCode)
+                        {
+                            byte ancient = ancientSprm.Arguments[0];
+                            ret = toogleValue(ret, ancient);
+                            break;
+                        }
                     }
                 }
             }

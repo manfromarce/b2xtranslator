@@ -262,7 +262,7 @@ namespace b2xtranslator.DocFileFormat
 
         public virtual void Convert<T>(T mapping)
         {
-            ((IMapping<PictureDescriptor>)mapping).Apply(this);
+            (mapping as IMapping<PictureDescriptor>)?.Apply(this);
         }
 
         #endregion

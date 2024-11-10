@@ -172,7 +172,7 @@ namespace b2xtranslator.OfficeDrawing
 
         void IVisitable.Convert<T>(T mapping)
         {
-            ((IMapping<Record>)mapping).Apply(this);
+            (mapping as IMapping<Record>)?.Apply(this);
         }
 
         #endregion

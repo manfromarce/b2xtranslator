@@ -55,7 +55,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<WindowSequence>)mapping).Apply(this);
+            (mapping as IMapping<WindowSequence>)?.Apply(this);
         }
 
         #endregion

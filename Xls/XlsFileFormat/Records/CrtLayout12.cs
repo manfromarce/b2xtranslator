@@ -148,7 +148,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.Records
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<CrtLayout12>)mapping).Apply(this);
+            (mapping as IMapping<CrtLayout12>)?.Apply(this);
         }
 
         #endregion

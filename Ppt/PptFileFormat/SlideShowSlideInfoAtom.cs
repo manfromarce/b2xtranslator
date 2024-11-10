@@ -223,7 +223,7 @@ namespace b2xtranslator.PptFileFormat
         public int? intValue = null;
         public bool? boolValue = null;
         public float? floatValue = null;
-        public string stringValue = null;
+        public string stringValue = "";
         public TimeVariantValue(BinaryReader _reader, uint size, uint typeCode, uint version, uint instance)
             : base(_reader, size, typeCode, version, instance)
         {

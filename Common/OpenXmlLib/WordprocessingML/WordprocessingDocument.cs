@@ -1,29 +1,27 @@
 ﻿namespace b2xtranslator.OpenXmlLib.WordprocessingML
 {
-
-
     public class WordprocessingDocument : OpenXmlPackage
     {
-        protected OpenXmlPackage.DocumentType _documentType;
-        protected CustomXmlPropertiesPart _customFilePropertiesPart;
+        protected OpenXmlDocumentType _documentType;
+        protected CustomXmlPropertiesPart? _customFilePropertiesPart;
         protected MainDocumentPart _mainDocumentPart;
 
-        protected WordprocessingDocument(string fileName, OpenXmlPackage.DocumentType type)
+        protected WordprocessingDocument(string fileName, OpenXmlDocumentType type)
             : base(fileName)
         {
             switch (type)
             {
-                case OpenXmlPackage.DocumentType.Document:
-                    this._mainDocumentPart = new MainDocumentPart(this, WordprocessingMLContentTypes.MainDocument);
-                    break;
-                case OpenXmlPackage.DocumentType.MacroEnabledDocument:
+                case OpenXmlDocumentType.MacroEnabledDocument:
                     this._mainDocumentPart = new MainDocumentPart(this, WordprocessingMLContentTypes.MainDocumentMacro);
                     break;
-                case OpenXmlPackage.DocumentType.Template:
+                case OpenXmlDocumentType.Template:
                     this._mainDocumentPart = new MainDocumentPart(this, WordprocessingMLContentTypes.MainDocumentTemplate);
                     break;
-                case OpenXmlPackage.DocumentType.MacroEnabledTemplate:
+                case OpenXmlDocumentType.MacroEnabledTemplate:
                     this._mainDocumentPart = new MainDocumentPart(this, WordprocessingMLContentTypes.MainDocumentMacroTemplate);
+                    break;
+                default:
+                    this._mainDocumentPart = new MainDocumentPart(this, WordprocessingMLContentTypes.MainDocument);
                     break;
             }
 
@@ -31,20 +29,20 @@
             this.AddPart(this._mainDocumentPart);
         }
 
-        public static WordprocessingDocument Create(string fileName, OpenXmlPackage.DocumentType type)
+        public static WordprocessingDocument Create(string fileName, OpenXmlDocumentType type)
         {
             var doc = new WordprocessingDocument(fileName, type);
             
             return doc;
         }
 
-        public OpenXmlPackage.DocumentType DocumentType
+        public OpenXmlDocumentType DocumentType
         {
             get { return this._documentType; }
             set { this._documentType = value; }
         }
 
-        public CustomXmlPropertiesPart CustomFilePropertiesPart
+        public CustomXmlPropertiesPart? CustomFilePropertiesPart
         {
             get { return this._customFilePropertiesPart; }
         }

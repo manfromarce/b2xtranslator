@@ -1,4 +1,5 @@
 
+using System;
 using b2xtranslator.StructuredStorage.Reader;
 using b2xtranslator.Tools;
 
@@ -29,7 +30,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
         /// <summary>
         /// Array of string characters and formatting runs 
         /// </summary>
-        private byte[] rgb;
+        private byte[] rgb = Array.Empty<byte>();
 
         /// <summary>
         /// =0 if all the characters in the string have a high byte of 00h 

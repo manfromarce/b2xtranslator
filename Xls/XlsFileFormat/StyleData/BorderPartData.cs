@@ -19,23 +19,14 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.StyleData
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(System.Object obj)
+        public override bool Equals(object? obj)
         {
-            // If parameter is null return false.
-            if (obj == null)
+            if (obj is BorderPartData bpd)
             {
-                return false;
+                // Return true if the fields match
+                return (this.colorId == bpd.colorId) && (this.style == bpd.style);
             }
-
-            // If parameter cannot be cast to FillDataList return false.
-            var bpd = obj as BorderPartData;
-            if ((System.Object)bpd == null)
-            {
-                return false;
-            }
-
-            // Return true if the fields match:
-            return (this.colorId == bpd.colorId) && (this.style == bpd.style);
+            return false;
         }
 
         /// <summary>
@@ -43,10 +34,10 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.StyleData
         /// </summary>
         /// <param name="fd"></param>
         /// <returns></returns>
-        public bool Equals(BorderPartData bpd)
+        public bool Equals(BorderPartData? bpd)
         {
             // If parameter is null return false:
-            if ((object)bpd == null)
+            if (bpd == null)
             {
                 return false;
             }

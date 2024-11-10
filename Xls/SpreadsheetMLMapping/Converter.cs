@@ -10,9 +10,9 @@ namespace b2xtranslator.SpreadsheetMLMapping
 {
     public class Converter
     {
-        public static OpenXmlPackage.DocumentType DetectOutputType(XlsDocument xls)
+        public static OpenXmlDocumentType DetectOutputType(XlsDocument xls)
         {
-            var returnType = OpenXmlPackage.DocumentType.Document;
+            var returnType = OpenXmlDocumentType.Document;
             try
             {
                 //ToDo: Find better way to detect macro type
@@ -20,22 +20,22 @@ namespace b2xtranslator.SpreadsheetMLMapping
                 {
                     if (xls.WorkBookData.Template)
                     {
-                        returnType = OpenXmlPackage.DocumentType.MacroEnabledTemplate;
+                        returnType = OpenXmlDocumentType.MacroEnabledTemplate;
                     }
                     else
                     {
-                        returnType = OpenXmlPackage.DocumentType.MacroEnabledDocument;
+                        returnType = OpenXmlDocumentType.MacroEnabledDocument;
                     }
                 }
                 else
                 {
                     if (xls.WorkBookData.Template)
                     {
-                        returnType = OpenXmlPackage.DocumentType.Template;
+                        returnType = OpenXmlDocumentType.Template;
                     }
                     else
                     {
-                        returnType = OpenXmlPackage.DocumentType.Document;
+                        returnType = OpenXmlDocumentType.Document;
                     }
                 }
             }
@@ -46,21 +46,21 @@ namespace b2xtranslator.SpreadsheetMLMapping
             return returnType;
         }
 
-        public static string GetConformFilename(string choosenFilename, OpenXmlPackage.DocumentType outType)
+        public static string GetConformFilename(string choosenFilename, OpenXmlDocumentType outType)
         {
             string outExt = ".xlsx";
             switch (outType)
             {
-                case OpenXmlPackage.DocumentType.Document:
+                case OpenXmlDocumentType.Document:
                     outExt = ".xlsx";
                     break;
-                case OpenXmlPackage.DocumentType.MacroEnabledDocument:
+                case OpenXmlDocumentType.MacroEnabledDocument:
                     outExt = ".xlsm";
                     break;
-                case OpenXmlPackage.DocumentType.MacroEnabledTemplate:
+                case OpenXmlDocumentType.MacroEnabledTemplate:
                     outExt = ".xltm";
                     break;
-                case OpenXmlPackage.DocumentType.Template:
+                case OpenXmlDocumentType.Template:
                     outExt = ".xltx";
                     break;
                 default:
@@ -120,8 +120,8 @@ namespace b2xtranslator.SpreadsheetMLMapping
             xls.WorkBookData.Convert(new WorkbookMapping(xlsContext, spreadsheetDocument.WorkbookPart));
 
             // convert the macros
-            if (spreadsheetDocument.DocumentType == OpenXmlPackage.DocumentType.MacroEnabledDocument ||
-                spreadsheetDocument.DocumentType == OpenXmlPackage.DocumentType.MacroEnabledTemplate)
+            if (spreadsheetDocument.DocumentType == OpenXmlDocumentType.MacroEnabledDocument ||
+                spreadsheetDocument.DocumentType == OpenXmlDocumentType.MacroEnabledTemplate)
             {
                 xls.Convert(new MacroBinaryMapping(xlsContext));
             }

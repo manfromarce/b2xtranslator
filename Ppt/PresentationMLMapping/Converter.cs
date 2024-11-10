@@ -10,16 +10,16 @@ namespace b2xtranslator.PresentationMLMapping
 {
     public class Converter
     {
-        public static OpenXmlPackage.DocumentType DetectOutputType(PowerpointDocument ppt)
+        public static OpenXmlDocumentType DetectOutputType(PowerpointDocument ppt)
         {
-            var returnType = OpenXmlPackage.DocumentType.Document;
+            var returnType = OpenXmlDocumentType.Document;
 
             try
             {
                 //ToDo: Find better way to detect macro type
                 if (ppt.VbaProject != null)
                 {
-                    returnType = OpenXmlPackage.DocumentType.MacroEnabledDocument;
+                    returnType = OpenXmlDocumentType.MacroEnabledDocument;
                 }
             }
             catch (Exception)
@@ -29,21 +29,21 @@ namespace b2xtranslator.PresentationMLMapping
             return returnType;
         }
 
-        public static string GetConformFilename(string choosenFilename, OpenXmlPackage.DocumentType outType)
+        public static string GetConformFilename(string choosenFilename, OpenXmlDocumentType outType)
         {
             string outExt = ".pptx";
             switch (outType)
             {
-                case OpenXmlPackage.DocumentType.Document:
+                case OpenXmlDocumentType.Document:
                     outExt = ".pptx";
                     break;
-                case OpenXmlPackage.DocumentType.MacroEnabledDocument:
+                case OpenXmlDocumentType.MacroEnabledDocument:
                     outExt = ".pptm";
                     break;
-                case OpenXmlPackage.DocumentType.MacroEnabledTemplate:
+                case OpenXmlDocumentType.MacroEnabledTemplate:
                     outExt = ".potm";
                     break;
-                case OpenXmlPackage.DocumentType.Template:
+                case OpenXmlDocumentType.Template:
                     outExt = ".potx";
                     break;
                 default:

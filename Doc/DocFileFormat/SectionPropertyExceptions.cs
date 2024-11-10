@@ -17,7 +17,7 @@ namespace b2xtranslator.DocFileFormat
 
         public override void Convert<T>(T mapping)
         {
-            ((IMapping<SectionPropertyExceptions>)mapping).Apply(this);
+            (mapping as IMapping<SectionPropertyExceptions>)?.Apply(this);
         }
 
         #endregion

@@ -238,7 +238,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<ChartFormatsSequence>)mapping).Apply(this);
+            (mapping as IMapping<ChartFormatsSequence>)?.Apply(this);
         }
 
         #endregion

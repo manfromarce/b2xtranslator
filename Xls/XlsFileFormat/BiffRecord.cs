@@ -108,7 +108,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public static BiffRecord ReadRecord(IStreamReader reader)
         {
-            BiffRecord result = null;
+            BiffRecord? result = null;
             try
             {
                 var id = (RecordType)reader.ReadUInt16();
@@ -138,13 +138,13 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
                 if (TypeToRecordClassMapping.TryGetValue((ushort)id, out cls))
                 {
                     var constructor = cls.GetConstructor(
-                        new Type[] { typeof(IStreamReader), typeof(RecordType), typeof(ushort) }
+                        [typeof(IStreamReader), typeof(RecordType), typeof(ushort)]
                         );
 
                     try
                     {
                         result = (BiffRecord)constructor.Invoke(
-                            new object[] { reader, id, length }
+                            [reader, id, length]
                             );
                     }
                     catch (TargetInvocationException e)
@@ -154,7 +154,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
                 }
                 else
                 {
-                    result = new UnknownBiffRecord(reader, (RecordType)id, length);
+                    result = new UnknownBiffRecord(reader, id, length);
                 }
 
                 return result;

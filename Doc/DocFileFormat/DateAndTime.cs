@@ -101,7 +101,7 @@ namespace b2xtranslator.DocFileFormat
 
         public virtual void Convert<T>(T mapping)
         {
-            ((IMapping<DateAndTime>)mapping).Apply(this);
+            (mapping as IMapping<DateAndTime>)?.Apply(this);
         }
 
         #endregion

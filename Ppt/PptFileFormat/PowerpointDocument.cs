@@ -316,7 +316,7 @@ namespace b2xtranslator.PptFileFormat
         /// </summary>
         /// <param name="masterId">id of master to find</param>
         /// <returns>Slide or main master with the specified masterId or null if none exists</returns>
-        public Slide FindMasterRecordById(uint masterId)
+        public Slide? FindMasterRecordById(uint masterId)
         {
             if (this.MasterRecordsById.ContainsKey(masterId))
             {
@@ -334,7 +334,7 @@ namespace b2xtranslator.PptFileFormat
         /// <typeparam name="T">Type of record</typeparam>
         /// <param name="persistId">persist id of record to look up</param>
         /// <returns>Matching record of given type or null</returns>
-        public T GetPersistObject<T>(uint persistId) where T : Record
+        public T? GetPersistObject<T>(uint persistId) where T : Record
         {
             if (!this.PersistObjectDirectory.ContainsKey(persistId))
                 return null;
@@ -417,7 +417,10 @@ namespace b2xtranslator.PptFileFormat
             try
             {
                 var vbaInfo = this.DocumentRecord.DocInfoListContainer.FirstChildWithType<VBAInfoContainer>();
-                this.VbaProject = GetPersistObject<ExOleObjStgAtom>(vbaInfo.objStgDataRef);
+                if (vbaInfo != null)
+                {
+                    this.VbaProject = GetPersistObject<ExOleObjStgAtom>(vbaInfo.objStgDataRef);
+                }
             }
             catch (Exception)
             {
@@ -505,7 +508,7 @@ namespace b2xtranslator.PptFileFormat
             result.AppendLine();
 
             result.Append("DocumentRecord: ");
-            result.AppendLine(this.DocumentRecord.ToString());
+            result.AppendLine(this.DocumentRecord?.ToString());
 
             foreach (var r in this.MainMasterRecords)
             {
@@ -535,7 +538,7 @@ namespace b2xtranslator.PptFileFormat
 
         override public void Convert<T>(T mapping)
         {
-            ((IMapping<PowerpointDocument>)mapping).Apply(this);
+            (mapping as IMapping<PowerpointDocument>)?.Apply(this);
         }
 
         #endregion

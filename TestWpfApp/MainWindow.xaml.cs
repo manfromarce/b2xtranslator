@@ -49,10 +49,10 @@ public partial class MainWindow : Window
                             string outputExt = inputExt + "x";
                             string baseName = Path.GetFileNameWithoutExtension(file);
                             string outputFile = Path.Join(outputDir, baseName + outputExt);
-                            var outputType = b2xtranslator.OpenXmlLib.OpenXmlPackage.DocumentType.Document;
+                            var outputType = b2xtranslator.OpenXmlLib.OpenXmlDocumentType.Document;
                             if (inputExt == ".dot" || inputExt == ".xlt" || inputExt == ".pot")
                             {
-                                outputType = b2xtranslator.OpenXmlLib.OpenXmlPackage.DocumentType.Template;
+                                outputType = b2xtranslator.OpenXmlLib.OpenXmlDocumentType.Template;
                             }
                             switch (inputExt)
                             {

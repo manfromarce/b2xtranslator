@@ -14,7 +14,7 @@ namespace b2xtranslator.StructuredStorage.Reader
         Fat _fat;
         Header _header;
         InputHandler _fileHandler;
-        List<uint> _sectorsUsedByDirectory;      
+        List<uint> _sectorsUsedByDirectory = new List<uint>();      
 
         List<DirectoryEntry> _directoryEntries = new List<DirectoryEntry>();
 
@@ -119,7 +119,7 @@ namespace b2xtranslator.StructuredStorage.Reader
         /// <summary>
         /// Returns the directory entry with the given name/path 
         /// </summary>
-        internal DirectoryEntry GetDirectoryEntry(string path)
+        internal DirectoryEntry? GetDirectoryEntry(string path)
         {
             if (path.Length < 1)
             {
@@ -138,7 +138,7 @@ namespace b2xtranslator.StructuredStorage.Reader
         /// <summary>
         /// Returns the directory entry with the given sid
         /// </summary>
-        internal DirectoryEntry GetDirectoryEntry(uint sid)
+        internal DirectoryEntry? GetDirectoryEntry(uint sid)
         {
             return this._directoryEntries.Find(delegate(DirectoryEntry entry) { return entry.Sid == sid; });
         }

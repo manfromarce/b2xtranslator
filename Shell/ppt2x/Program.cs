@@ -41,7 +41,7 @@ namespace b2xtranslator.ppt2x
                     {
                         if (new FileInfo(file).Extension.ToLower().EndsWith("ppt"))
                         {
-                            ChoosenOutputFile = null;
+                            ChoosenOutputFile = "";
                             processFile(file);
                         }
                     }

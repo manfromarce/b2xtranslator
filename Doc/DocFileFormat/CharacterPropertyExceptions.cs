@@ -29,7 +29,7 @@ namespace b2xtranslator.DocFileFormat
 
         public override void Convert<T>(T mapping)
         {
-            ((IMapping<CharacterPropertyExceptions>)mapping).Apply(this);
+            (mapping as IMapping<CharacterPropertyExceptions>)?.Apply(this);
         }
 
         #endregion

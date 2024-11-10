@@ -37,8 +37,6 @@ namespace b2xtranslator.SpreadsheetMLMapping
             var uri = new Uri(sbd.VirtPath, UriKind.RelativeOrAbsolute);
             var er = this.xlsContext.SpreadDoc.WorkbookPart.GetExternalLinkPart().AddExternalRelationship(OpenXmlRelationshipTypes.ExternalLinkPath, uri);
 
-
-
             this._writer.WriteStartDocument();
             this._writer.WriteStartElement("externalLink", OpenXmlNamespaces.SpreadsheetML);
 

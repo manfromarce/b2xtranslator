@@ -9,9 +9,9 @@ namespace b2xtranslator.WordprocessingMLMapping
 {
     public class Converter
     {
-        public static OpenXmlPackage.DocumentType DetectOutputType(WordDocument doc)
+        public static OpenXmlDocumentType DetectOutputType(WordDocument doc)
         {
-            var returnType = OpenXmlPackage.DocumentType.Document;
+            var returnType = OpenXmlDocumentType.Document;
 
             //detect the document type
             if (doc.FIB.fDot)
@@ -20,12 +20,12 @@ namespace b2xtranslator.WordprocessingMLMapping
                 if (doc.CommandTable.MacroDatas != null && doc.CommandTable.MacroDatas.Count > 0)
                 {
                     //macro enabled template
-                    returnType = OpenXmlPackage.DocumentType.MacroEnabledTemplate;
+                    returnType = OpenXmlDocumentType.MacroEnabledTemplate;
                 }
                 else
                 {
                     //without macros
-                    returnType = OpenXmlPackage.DocumentType.Template;
+                    returnType = OpenXmlDocumentType.Template;
                 }
             }
             else
@@ -34,11 +34,11 @@ namespace b2xtranslator.WordprocessingMLMapping
                 if (doc.CommandTable.MacroDatas != null && doc.CommandTable.MacroDatas.Count > 0)
                 {
                     //macro enabled document
-                    returnType = OpenXmlPackage.DocumentType.MacroEnabledDocument;
+                    returnType = OpenXmlDocumentType.MacroEnabledDocument;
                 }
                 else
                 {
-                    returnType = OpenXmlPackage.DocumentType.Document;
+                    returnType = OpenXmlDocumentType.Document;
                 }
             }
 
@@ -46,21 +46,21 @@ namespace b2xtranslator.WordprocessingMLMapping
         }
 
 
-        public static string GetConformFilename(string choosenFilename, OpenXmlPackage.DocumentType outType)
+        public static string GetConformFilename(string choosenFilename, OpenXmlDocumentType outType)
         {
             string outExt = ".docx";
             switch (outType)
             {
-                case OpenXmlPackage.DocumentType.Document:
+                case OpenXmlDocumentType.Document:
                     outExt = ".docx";
                     break;
-                case OpenXmlPackage.DocumentType.MacroEnabledDocument:
+                case OpenXmlDocumentType.MacroEnabledDocument:
                     outExt = ".docm";
                     break;
-                case OpenXmlPackage.DocumentType.MacroEnabledTemplate:
+                case OpenXmlDocumentType.MacroEnabledTemplate:
                     outExt = ".dotm";
                     break;
-                case OpenXmlPackage.DocumentType.Template:
+                case OpenXmlDocumentType.Template:
                     outExt = ".dotx";
                     break;
                 default:
@@ -97,8 +97,8 @@ namespace b2xtranslator.WordprocessingMLMapping
                 context.Docx = docx;
 
                 //convert the macros
-                if (docx.DocumentType == OpenXmlPackage.DocumentType.MacroEnabledDocument ||
-                    docx.DocumentType == OpenXmlPackage.DocumentType.MacroEnabledTemplate)
+                if (docx.DocumentType == OpenXmlDocumentType.MacroEnabledDocument ||
+                    docx.DocumentType == OpenXmlDocumentType.MacroEnabledTemplate)
                 {
                     doc.Convert(new MacroBinaryMapping(context));
                     doc.Convert(new MacroDataMapping(context));

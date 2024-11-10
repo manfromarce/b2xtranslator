@@ -137,7 +137,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<CrtSequence>)mapping).Apply(this);
+            (mapping as IMapping<CrtSequence>)?.Apply(this);
         }
 
         #endregion

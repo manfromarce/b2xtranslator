@@ -243,7 +243,7 @@ namespace b2xtranslator.OfficeDrawing.Shapetypes
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<ShapeType>)mapping).Apply(this);
+            (mapping as IMapping<ShapeType>)?.Apply(this);
         }
 
         #endregion

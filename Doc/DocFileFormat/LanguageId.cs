@@ -238,7 +238,7 @@ namespace b2xtranslator.DocFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<LanguageId>)mapping).Apply(this);
+            (mapping as IMapping<LanguageId>)?.Apply(this);
         }
 
         #endregion

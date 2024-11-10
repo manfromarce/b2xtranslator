@@ -555,7 +555,7 @@ namespace b2xtranslator.DocFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<SinglePropertyModifier>)mapping).Apply(this);
+            (mapping as IMapping<SinglePropertyModifier>)?.Apply(this);
         }
 
         #endregion

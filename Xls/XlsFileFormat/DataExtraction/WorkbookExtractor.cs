@@ -14,7 +14,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
     /// </summary>
     public class WorkbookExtractor : Extractor, IVisitable
     {
-        public string buffer;
+        public string buffer = "";
         public long oldOffset;
 
         public List<BoundSheet8> boundsheets;
@@ -67,7 +67,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
                             var bs = new BoundSheet8(this.StreamReader, bh.id, bh.length);
                             TraceLogger.DebugInternal(bs.ToString());
 
-                            SheetData sheetData = null;
+                            SheetData? sheetData = null;
 
                             switch (bs.dt)
                             {
@@ -75,7 +75,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
                                     sheetData = new WorkSheetData();
                                     this.oldOffset = this.StreamReader.BaseStream.Position;
                                     this.StreamReader.BaseStream.Seek(bs.lbPlyPos, SeekOrigin.Begin);
-                                    var se = new WorksheetExtractor(this.StreamReader, sheetData as WorkSheetData);
+                                    var se = new WorksheetExtractor(this.StreamReader, (WorkSheetData)sheetData);
                                     this.StreamReader.BaseStream.Seek(this.oldOffset, SeekOrigin.Begin);
                                     break;
 
@@ -99,8 +99,8 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
                             {
                                 // add general sheet info
                                 sheetData.boundsheetRecord = bs;
+                                this.workBookData.addBoundSheetData(sheetData);
                             }
-                            this.workBookData.addBoundSheetData(sheetData);
                         }
                         break;
 
@@ -289,7 +289,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<WorkbookExtractor>)mapping).Apply(this);
+            (mapping as IMapping<WorkbookExtractor>)?.Apply(this);
         }
 
         #endregion

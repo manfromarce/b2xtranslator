@@ -14,7 +14,7 @@ namespace b2xtranslator.PresentationMLMapping
     public class NotesMasterMapping : PresentationMapping<RegularContainer>
     {
         public NotesMasterPart MasterPart;
-        protected Note Master;
+        protected Note? Master;
         protected uint MasterId;
 
         public NotesMasterMapping(ConversionContext ctx)
@@ -46,7 +46,7 @@ namespace b2xtranslator.PresentationMLMapping
 
             this._writer.WriteStartElement("p", "cSld", OpenXmlNamespaces.PresentationML);
 
-            var sc = this.Master.FirstChildWithType<PPDrawing>().FirstChildWithType<DrawingContainer>().FirstChildWithType<ShapeContainer>();
+            var sc = this.Master?.FirstChildWithType<PPDrawing>().FirstChildWithType<DrawingContainer>().FirstChildWithType<ShapeContainer>();
             if (sc != null)
             {
                 var sh = sc.FirstChildWithType<Shape>();
@@ -64,7 +64,7 @@ namespace b2xtranslator.PresentationMLMapping
                 else if (so.OptionsByID.ContainsKey(ShapeOptions.PropertyId.fillColor))
                 {
                     string colorval;
-                    if (so.OptionsByID.ContainsKey(ShapeOptions.PropertyId.fillColor))
+                    if (so.OptionsByID.ContainsKey(ShapeOptions.PropertyId.fillColor) && Master != null)
                     {
                         colorval = Utils.getRGBColorFromOfficeArtCOLORREF(so.OptionsByID[ShapeOptions.PropertyId.fillColor].op, this.Master, so);
                     }
@@ -94,13 +94,13 @@ namespace b2xtranslator.PresentationMLMapping
             this._writer.WriteStartElement("p", "spTree", OpenXmlNamespaces.PresentationML);
             var stm = new ShapeTreeMapping(this._ctx, this._writer);
             stm.parentSlideMapping = this;
-            stm.Apply(this.Master.FirstChildWithType<PPDrawing>());
+            stm.Apply(this.Master?.FirstChildWithType<PPDrawing>());
 
             this._writer.WriteEndElement();
             this._writer.WriteEndElement();
 
             // Write clrMap
-            var clrMap = this.Master.FirstChildWithType<ColorMappingAtom>();
+            var clrMap = this.Master?.FirstChildWithType<ColorMappingAtom>();
             if (clrMap != null)
             {
                 // clrMap from ColorMappingAtom wrongly uses namespace DrawingML
@@ -120,8 +120,9 @@ namespace b2xtranslator.PresentationMLMapping
 
 
             // Write txStyles
-            var roundTripTxStyles = this.Master.FirstChildWithType<RoundTripOArtTextStyles12>();
-            if (false & roundTripTxStyles != null)
+            var roundTripTxStyles = this.Master?.FirstChildWithType<RoundTripOArtTextStyles12>();
+            //if (false & roundTripTxStyles != null)
+            if (roundTripTxStyles != null)
             {
                 roundTripTxStyles.XmlDocumentElement.WriteTo(this._writer);
             }
@@ -144,7 +145,7 @@ namespace b2xtranslator.PresentationMLMapping
             var themePart = this._ctx.Pptx.PresentationPart.AddThemePart();
 
             XmlNode xmlDoc;
-            var theme = this.Master.FirstChildWithType<Theme>();
+            var theme = this.Master?.FirstChildWithType<Theme>();
 
             if (theme != null)
             {
@@ -153,8 +154,8 @@ namespace b2xtranslator.PresentationMLMapping
             }
             else
             {
-                var schemes = this.Master.AllChildrenWithType<ColorSchemeAtom>();
-                if (schemes.Count > 0)
+                var schemes = this.Master?.AllChildrenWithType<ColorSchemeAtom>();
+                if (schemes?.Count > 0)
                 {
                     new ColorSchemeMapping(this._ctx, themePart.XmlWriter).Apply(schemes);                    
                 }

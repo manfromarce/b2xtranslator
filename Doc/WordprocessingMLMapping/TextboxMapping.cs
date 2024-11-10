@@ -33,21 +33,21 @@ namespace b2xtranslator.WordprocessingMLMapping
 
             int cp = 0;
             int cpEnd = 0;
-            BreakDescriptor bkd = null;
+            BreakDescriptor? bkd = null;
             int txtbxSubdocStart = doc.FIB.ccpText + doc.FIB.ccpFtn + doc.FIB.ccpHdr + doc.FIB.ccpAtn + doc.FIB.ccpEdn;
 
             if(this._targetPart.GetType() == typeof(MainDocumentPart))
             {
                 cp = txtbxSubdocStart + doc.TextboxBreakPlex.CharacterPositions[this._textboxIndex];
                 cpEnd = txtbxSubdocStart + doc.TextboxBreakPlex.CharacterPositions[this._textboxIndex + 1];
-                bkd = (BreakDescriptor)doc.TextboxBreakPlex.Elements[this._textboxIndex];
+                bkd = doc.TextboxBreakPlex.Elements[this._textboxIndex];
             }
             if (this._targetPart.GetType() == typeof(HeaderPart) || this._targetPart.GetType() == typeof(FooterPart))
             {
                 txtbxSubdocStart += doc.FIB.ccpTxbx;
                 cp = txtbxSubdocStart + doc.TextboxBreakPlexHeader.CharacterPositions[this._textboxIndex];
                 cpEnd = txtbxSubdocStart + doc.TextboxBreakPlexHeader.CharacterPositions[this._textboxIndex + 1];
-                bkd = (BreakDescriptor)doc.TextboxBreakPlexHeader.Elements[this._textboxIndex];
+                bkd = doc.TextboxBreakPlexHeader.Elements[this._textboxIndex];
             }
 
             //convert the textbox text

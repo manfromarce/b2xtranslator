@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Diagnostics;
 using b2xtranslator.StructuredStorage.Reader;
 
@@ -48,7 +49,7 @@ namespace b2xtranslator.OfficeGraph
         /// 
         /// The number of elements in this array MUST be equal to the value specified in cFont.
         /// </summary>
-        public FontInfo[] rgFontInfo;
+        public FontInfo[] rgFontInfo = Array.Empty<FontInfo>();
         
         public FrtFontList(IStreamReader reader, GraphRecordNumber id, ushort length)
             : base(reader, id, length)

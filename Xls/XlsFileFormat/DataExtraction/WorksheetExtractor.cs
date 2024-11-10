@@ -34,7 +34,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
         public override void extractData()
         {
             BiffHeader bh, latestbiff;
-            BOF firstBOF = null;
+            BOF? firstBOF = null;
             
             //try
             //{
@@ -210,7 +210,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
                                     this.StreamReader.BaseStream.Seek(oldStreamPos, System.IO.SeekOrigin.Begin);
                                     this.StreamReader.BaseStream.Seek(bh.length, System.IO.SeekOrigin.Current);
                                     TraceLogger.Debug("Link parse error");
-                                    TraceLogger.Error(ex.StackTrace);
+                                    TraceLogger.Error(ex.StackTrace ?? "");
                                 }
                             }
                             break;

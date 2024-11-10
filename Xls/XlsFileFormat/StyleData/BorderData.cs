@@ -5,11 +5,11 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.StyleData
 {
     public class BorderData
     {
-        public BorderPartData top;
-        public BorderPartData bottom;
-        public BorderPartData left;
-        public BorderPartData right;
-        public BorderPartData diagonal;
+        public BorderPartData? top;
+        public BorderPartData? bottom;
+        public BorderPartData? left;
+        public BorderPartData? right;
+        public BorderPartData? diagonal;
 
         public ushort diagonalValue; 
 
@@ -24,57 +24,21 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.StyleData
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(System.Object obj)
+        public override bool Equals(object? obj)
         {
-            // If parameter is null return false.
-            if (obj == null)
+            if (obj is BorderData bd)
             {
-                return false;
+                if (this.top?.Equals(bd.top) == true && 
+                    this.bottom?.Equals(bd.bottom) == true && 
+                    this.left?.Equals(bd.left) == true &&
+                    this.right?.Equals(bd.right) == true &&
+                    this.diagonal?.Equals(bd.diagonal) == true && 
+                    this.diagonalValue == bd.diagonalValue)
+                {
+                    return true;
+                }
             }
-
-            // If parameter cannot be cast to FillDataList return false.
-            var bd = obj as BorderData;
-            if ((System.Object)bd == null)
-            {
-                return false;
-            }
-
-            if (this.top.Equals(bd.top) && this.bottom.Equals(bd.bottom) && this.left.Equals(bd.left)
-                && this.right.Equals(bd.right) && this.diagonal.Equals(bd.diagonal) 
-                && this.diagonalValue == bd.diagonalValue)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
-
-        /// <summary>
-        /// Equals Method
-        /// </summary>
-        /// <param name="fd"></param>
-        /// <returns></returns>
-        public bool Equals(BorderData bd)
-        {
-            // If parameter is null return false:
-            if ((object)bd == null)
-            {
-                return false;
-            }
-
-            if (this.top.Equals(bd.top) && this.bottom.Equals(bd.bottom) && this.left.Equals(bd.left)
-                && this.right.Equals(bd.right) && this.diagonal.Equals(bd.diagonal)
-                && this.diagonalValue == bd.diagonalValue)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
     }
 }

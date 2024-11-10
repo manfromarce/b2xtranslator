@@ -65,7 +65,7 @@ namespace b2xtranslator.DocFileFormat
 
         public override void Convert<T>(T mapping)
         {
-            ((IMapping<ParagraphPropertyExceptions>)mapping).Apply(this);
+            (mapping as IMapping<ParagraphPropertyExceptions>)?.Apply(this);
         }
 
         #endregion

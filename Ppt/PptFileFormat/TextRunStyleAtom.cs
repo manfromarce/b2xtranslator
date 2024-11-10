@@ -22,7 +22,7 @@ namespace b2xtranslator.PptFileFormat
 
         override public void AfterTextHeaderSet()
         {
-            var textAtom = this.TextHeaderAtom.TextAtom;
+            var textAtom = this.TextHeaderAtom?.TextAtom;
 
             /* This can legitimately happen... */
             if (textAtom == null)

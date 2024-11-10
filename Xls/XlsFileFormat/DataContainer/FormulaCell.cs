@@ -12,11 +12,11 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.DataContainer
         /// <summary>
         /// String which stores the index to the sharedstringtable 
         /// </summary>
-        private string valueString;
+        private string valueString = "";
 
         ///
 
-        private Stack<AbstractPtg> ptgStack;
+        private Stack<AbstractPtg> ptgStack = new Stack<AbstractPtg>();
         public Stack<AbstractPtg> PtgStack
         {
             get { return this.ptgStack; }
@@ -51,7 +51,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.DataContainer
         }
 
 
-        public object calculatedValue; 
+        public object? calculatedValue; 
 
      }
 }

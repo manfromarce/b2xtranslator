@@ -30,7 +30,7 @@ namespace b2xtranslator.PresentationMLMapping
 
             if (lang.Length == 0)
             {
-                var siea = this._ctx.Ppt.DocumentRecord.FirstDescendantWithType<TextSIExceptionAtom>();
+                var siea = this._ctx.Ppt.DocumentRecord?.FirstDescendantWithType<TextSIExceptionAtom>();
                 if (siea != null)
                 {
                     if (siea.si.lang)
@@ -60,7 +60,7 @@ namespace b2xtranslator.PresentationMLMapping
 
             if (altLang.Length == 0)
             {
-                var siea = this._ctx.Ppt.DocumentRecord.FirstDescendantWithType<TextSIExceptionAtom>();
+                var siea = this._ctx.Ppt.DocumentRecord?.FirstDescendantWithType<TextSIExceptionAtom>();
                 if (siea != null)
                 {
                     if (siea.si.altLang)
@@ -94,14 +94,12 @@ namespace b2xtranslator.PresentationMLMapping
             if (altLang.Length > 0)
                 this._writer.WriteAttributeString("altLang", altLang);
 
-            bool runExists = run != null;
-
-            if (runExists && run.SizePresent)
+            if (run != null && run!.SizePresent)
             {
                 if (run.Size > 0)
                 {
                     this._writer.WriteAttributeString("sz", (run.Size * 100).ToString());
-                    lastSize = (run.Size * 100).ToString();
+                    lastSize = (((ushort)run.Size) * 100).ToString();
                 }
             }
             else if (lastSize.Length > 0)
@@ -116,7 +114,7 @@ namespace b2xtranslator.PresentationMLMapping
                 }
             }
 
-            if (runExists && run.StyleFlagsFieldPresent)
+            if (run != null && run.StyleFlagsFieldPresent)
             {
                 if ((run.Style & StyleMask.IsBold) == StyleMask.IsBold) this._writer.WriteAttributeString("b", "1");
                 if ((run.Style & StyleMask.IsItalic) == StyleMask.IsItalic) this._writer.WriteAttributeString("i", "1");
@@ -129,7 +127,7 @@ namespace b2xtranslator.PresentationMLMapping
                 if ((defaultStyle.CRuns[lvl].Style & StyleMask.IsUnderlined) == StyleMask.IsUnderlined) this._writer.WriteAttributeString("u", "sng");
             }
 
-            if (runExists && run.ColorPresent)
+            if (run != null && run.ColorPresent)
             {
                 writeSolidFill(slide, run, ref lastColor);
             }
@@ -149,7 +147,7 @@ namespace b2xtranslator.PresentationMLMapping
                 }
             }
 
-            if (runExists && run.StyleFlagsFieldPresent)
+            if (run != null && run.StyleFlagsFieldPresent)
             {
                 if ((run.Style & StyleMask.HasShadow) == StyleMask.HasShadow)
                 {
@@ -222,7 +220,7 @@ namespace b2xtranslator.PresentationMLMapping
             //run.SymbolTypefacePresent
             //run.TypefacePresent
 
-            if (runExists && run.TypefacePresent)
+            if (run != null && run.TypefacePresent)
             {
                 this._writer.WriteStartElement("a", "latin", OpenXmlNamespaces.DrawingML);
                 try
@@ -332,7 +330,7 @@ namespace b2xtranslator.PresentationMLMapping
 
             }
 
-            if (runExists && run.FEOldTypefacePresent)
+            if (run != null && run.FEOldTypefacePresent)
             {
                 try
                 {
@@ -386,7 +384,7 @@ namespace b2xtranslator.PresentationMLMapping
 
             }
 
-            if (runExists && run.SymbolTypefacePresent)
+            if (run != null && run.SymbolTypefacePresent)
             {
 
                 try
@@ -505,7 +503,7 @@ namespace b2xtranslator.PresentationMLMapping
                 else
                 {
 
-                    ColorSchemeAtom MasterScheme = null;
+                    ColorSchemeAtom? MasterScheme = null;
                     var ato = slide.FirstChildWithType<SlideAtom>();
                     List<ColorSchemeAtom> colors;
                     if (ato != null && Tools.Utils.BitmaskToBool(ato.Flags, 0x1 << 1) && ato.MasterId != 0)

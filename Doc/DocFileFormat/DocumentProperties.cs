@@ -1678,7 +1678,7 @@ namespace b2xtranslator.DocFileFormat
 
         public virtual void Convert<T>(T mapping)
         {
-            ((IMapping<DocumentProperties>)mapping).Apply(this);
+            (mapping as IMapping<DocumentProperties>)?.Apply(this);
         }
 
         #endregion

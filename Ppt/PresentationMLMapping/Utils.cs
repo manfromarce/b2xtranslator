@@ -7,6 +7,7 @@ using System.Xml;
 using System.Reflection;
 using b2xtranslator.Tools;
 using b2xtranslator.OfficeDrawing;
+using System.Linq;
 
 namespace b2xtranslator.PresentationMLMapping
 {
@@ -300,11 +301,12 @@ namespace b2xtranslator.PresentationMLMapping
             bool fSysIndex = (bytes[3] & (1 << 4)) != 0;
 
             var colors = slide.AllChildrenWithType<ColorSchemeAtom>();
-            ColorSchemeAtom MasterScheme = null;
-            foreach (var color in colors)
-            {
-                if (color.Instance == 1) MasterScheme = color;
-            }
+            //ColorSchemeAtom MasterScheme = null;
+            //foreach (var color in colors)
+            //{
+            //    if (color.Instance == 1) MasterScheme = color;
+            //}
+            ColorSchemeAtom? MasterScheme = colors.Where(c => c.Instance == 1).FirstOrDefault();
 
             if (fSysIndex)
             {

@@ -60,7 +60,7 @@ namespace b2xtranslator.PresentationMLMapping
             var xmlDoc = Utils.GetDefaultDocument("theme");
             var l = xmlDoc.GetElementsByTagName("fmtScheme", OpenXmlNamespaces.DrawingML);
 
-            l.Item(0).WriteTo(this._writer);
+            l.Item(0)?.WriteTo(this._writer);
 
             //_writer.WriteStartElement("a", "fmtScheme", OpenXmlNamespaces.DrawingML);
             //_writer.WriteAttributeString("name", "dummyFmtScheme");

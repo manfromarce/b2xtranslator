@@ -49,7 +49,7 @@ namespace b2xtranslator.WordprocessingMLMapping
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<Field>)mapping).Apply(this);
+            (mapping as IMapping<Field>)?.Apply(this);
         }
 
         #endregion

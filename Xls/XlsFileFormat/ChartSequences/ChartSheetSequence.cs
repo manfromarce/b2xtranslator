@@ -31,7 +31,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<ChartSheetSequence>)mapping).Apply(this);
+            (mapping as IMapping<ChartSheetSequence>)?.Apply(this);
         }
 
         #endregion

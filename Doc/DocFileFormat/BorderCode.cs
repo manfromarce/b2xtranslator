@@ -154,7 +154,7 @@ namespace b2xtranslator.DocFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<BorderCode>)mapping).Apply(this);
+            (mapping as IMapping<BorderCode>)?.Apply(this);
         }
 
         #endregion

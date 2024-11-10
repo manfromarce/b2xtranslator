@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using System.Diagnostics;
 using b2xtranslator.StructuredStorage.Reader;
 
@@ -25,7 +26,7 @@ namespace b2xtranslator.OfficeGraph
         /// 
         /// There MUST be an even number of unsigned short integers in this field.
         /// </summary>
-        public byte[] bData = null;
+        public byte[] bData = Array.Empty<byte>();
 
         public ExcludeColumns(IStreamReader reader, GraphRecordNumber id, ushort length)
             : base(reader, id, length)

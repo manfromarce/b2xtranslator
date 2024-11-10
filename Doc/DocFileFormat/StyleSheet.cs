@@ -63,7 +63,7 @@ namespace b2xtranslator.DocFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<StyleSheet>)mapping).Apply(this);
+            (mapping as IMapping<StyleSheet>)?.Apply(this);
         }
 
         #endregion

@@ -79,7 +79,7 @@ namespace b2xtranslator.Tools
             if (cch > 0)
                 return Encoding.ASCII.GetString(stringBytes, 0, stringBytes.Length - 1);
             else
-                return null;
+                return "";
         }
 
         public static string ReadXstz(byte[] bytes, int pos)

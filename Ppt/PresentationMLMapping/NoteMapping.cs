@@ -10,7 +10,7 @@ namespace b2xtranslator.PresentationMLMapping
 {
     public class NoteMapping : PresentationMapping<RegularContainer>
     {
-        public Note Note;
+        public Note? Note;
         private SlideMapping SlideMapping;
 
         public NoteMapping(ConversionContext ctx, SlideMapping slideMapping)
@@ -72,12 +72,12 @@ namespace b2xtranslator.PresentationMLMapping
 
         private void checkHeaderFooter(ShapeTreeMapping stm)
         {
-            var slideAtom = this.Note.FirstChildWithType<NotesAtom>();
+            var slideAtom = this.Note?.FirstChildWithType<NotesAtom>();
 
             string footertext = "";
             string headertext = "";
             string userdatetext = "";
-            var headersfooters = this.Note.FirstChildWithType<SlideHeadersFootersContainer>();
+            var headersfooters = this.Note?.FirstChildWithType<SlideHeadersFootersContainer>();
             if (headersfooters != null)
             {
                 foreach (var text in headersfooters.AllChildrenWithType<CStringAtom>())
@@ -108,26 +108,29 @@ namespace b2xtranslator.PresentationMLMapping
             //bool date = false;
             //bool userDate = false;
 
-            foreach (var c in this._ctx.Ppt.DocumentRecord.AllChildrenWithType<SlideHeadersFootersContainer>())
+            var headerFooterContainers = this._ctx.Ppt.DocumentRecord?.AllChildrenWithType<SlideHeadersFootersContainer>();
+            if (headerFooterContainers != null)
             {
-                switch (c.Instance)
+                foreach (var c in headerFooterContainers)
                 {
-                    case 0: //PerSlideHeadersFootersContainer
-                        break;
-                    case 3: //SlideHeadersFootersContainer
-                        break;
-                    case 4: //NotesHeadersFootersContainer
-                        foreach (var a in c.AllChildrenWithType<HeadersFootersAtom>())
-                        {
-                            if (a.fHasFooter) footer = true;
-                            //if (a.fHasHeader) header = true;
-                            if (a.fHasSlideNumber) slideNumber = true;
-                            //if (a.fHasDate) date = true;
-                            //if (a.fHasUserDate) userDate = true;
-                        }
-                        break;
+                    switch (c.Instance)
+                    {
+                        case 0: //PerSlideHeadersFootersContainer
+                            break;
+                        case 3: //SlideHeadersFootersContainer
+                            break;
+                        case 4: //NotesHeadersFootersContainer
+                            foreach (var a in c.AllChildrenWithType<HeadersFootersAtom>())
+                            {
+                                if (a.fHasFooter) footer = true;
+                                //if (a.fHasHeader) header = true;
+                                if (a.fHasSlideNumber) slideNumber = true;
+                                //if (a.fHasDate) date = true;
+                                //if (a.fHasUserDate) userDate = true;
+                            }
+                            break;
+                    }
                 }
-
             }
 
             var master = this._ctx.Ppt.NotesMasterRecords[0];

@@ -34,7 +34,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<ObjectsSequence>)mapping).Apply(this);
+            (mapping as IMapping<ObjectsSequence>)?.Apply(this);
         }
 
         #endregion

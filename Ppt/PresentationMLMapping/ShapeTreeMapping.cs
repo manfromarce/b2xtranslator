@@ -60,10 +60,13 @@ namespace b2xtranslator.PresentationMLMapping
             }
         }
 
-        public void Apply(PPDrawing drawing)
+        public void Apply(PPDrawing? drawing)
         {
-            Apply((RegularContainer) drawing);
-            writeVML();
+            if (drawing is RegularContainer regularContainer)
+            {
+                Apply(regularContainer);
+                writeVML();
+            }
         }
 
         public void Apply(DrawingContainer drawingContainer)

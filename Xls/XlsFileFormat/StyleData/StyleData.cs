@@ -282,7 +282,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat.StyleData
 
         public void Convert<T>(T mapping)
         {
-            ((IMapping<StyleData>)mapping).Apply(this);
+            (mapping as IMapping<StyleData>)?.Apply(this);
         }
 
         #endregion

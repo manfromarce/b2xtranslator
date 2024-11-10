@@ -458,7 +458,7 @@ namespace b2xtranslator.Spreadsheet.XlsFileFormat
 
         public override void Convert<T>(T mapping)
         {
-            ((IMapping<WorkSheetData>)mapping).Apply(this);
+            (mapping as IMapping<WorkSheetData>)?.Apply(this);
         }
     }
 }
