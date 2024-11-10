@@ -1,6 +1,6 @@
 This is a fork of the original [b2xtranslator project](https://github.com/EvolutionJobs/b2xtranslator) which seems abandoned.
 
-
+It has been updated to .NET 8 and the most critical issues have been fixed. More .doc, .xls and .ppt documents should now be converted with acceptable results. However, much work is still needed to make this library reliable (a couple of files I tested still throw exceptions).
 
 The original README follows.
 
